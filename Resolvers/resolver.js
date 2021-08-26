@@ -8,10 +8,15 @@ const resolvers = {
             await controllers.GetAllAuthor(),
         author: (parent, args, { controllers }) =>
             controllers.GetAuthorById(args._id),
+        categories: async (parent, args, { controllers }) =>
+            await controllers.GetAllCategory(),
+        category: async (parent, args, { controllers }) => controllers.GetCategoryById(args._id),
     },
     Book: {
         author: async (parent, args, { controllers }) =>
             controllers.GetAuthorByBookAuthorId(parent.authorId),
+        category: async (parent, args, { controllers }) =>
+            controllers.GetCategoryById(parent.categoryId),
     },
     Author: {
         books: async (parent, args, { controllers }) =>
@@ -22,6 +27,8 @@ const resolvers = {
             await controllers.CreateBook(args),
         createAuthor: async (parent, args, { controllers }) =>
             await controllers.CreateAuthor(args),
+        createCategory: async (parent, args, { controllers }) =>
+            await controllers.CreateCategory(args),
     },
 };
 
